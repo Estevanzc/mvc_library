@@ -1,14 +1,18 @@
 <?php
 namespace Controller;
 use Model\LivroModel;
+use Model\RetiradaModel;
 use Model\VO\LivroVO;
+use Model\VO\RetiradaVO;
 
 final class LivroController extends Controller {
     public function list() {
         $model = new LivroModel();
         $data = $model->selectAll(new LivroVO());
+        $retiradas = (new RetiradaModel())->selectAll(new RetiradaVO());
         $this->loadView("listaLivros", [
-            "livros" => $data
+            "livros" => $data,
+            "retiradas" => $retiradas
         ]);
     }
     public function form() {

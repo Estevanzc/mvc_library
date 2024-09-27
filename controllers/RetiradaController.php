@@ -11,8 +11,10 @@ final class RetiradaController extends Controller {
     public function list() {
         $model = new RetiradaModel();
         $retiradas = $model->selectAll(new RetiradaVO());
+        $livros = (new LivroModel())->selectAll(new LivroVO());
         $this->loadView("listaRetiradas", [
-            "retiradas" => $retiradas
+            "retiradas" => $retiradas,
+            "livros" => $livros
         ]);
     }
     public function form() {
