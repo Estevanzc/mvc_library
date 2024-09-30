@@ -51,18 +51,20 @@
             <div></div>
         </section>
         <section id="screen_middle" class="w-full flex justify-center items-center flex-col">
-            <div class="w-full h-14 flex justify-center items-center"></div>
-            <main class="mt-10 w-[60%] flex justify-center items-center flex-col gap-y-2.5 gap-x-2">
-                <form action="salvarAluno.php" method="POST" class="w-5/12 h-[400px] flex justify-center items-center flex-col bg-white rounded-lg shadow-2xl drop-shadow-2xl border-2 border-solid border-gray-300">
+            <main class="mt-10 w-[60%] flex justify-center items-center flex-col">
+                <form action="salvarAluno.php" method="POST" class="w-6/12 h-[400px] flex justify-center items-center flex-col bg-white rounded-lg shadow-2xl drop-shadow-2xl border-2 border-solid border-gray-300">
                     <input type="hidden" name="id" value="<?php echo $aluno->getId();?>">
                     <div class="w-full h-1/4 flex justify-center items-center">
                         <div class="w-7/12 h-full flex justify-center items-start flex-col gap-y-1">
-                            <label for="nome" class="ml-5 font-bold text-cyan-700 drop-shadow-2xl">Seu nome</label>
-                            <input type="text" name="nome" id="nome" value="<?php echo $aluno->getNome();?>" placeholder="Exemplo: Estevan Zimermann" class="w-11/12 h-1/2 self-center px-2 rounded-md text-sm font-medium border-2 border-solid border-gray-300">
+                            <label for="nome" class="alert_label flex justify-center items-center gap-x-2 ml-5 drop-shadow-2xl">
+                                <p class="font-bold text-cyan-700">Seu nome</p>
+                                <p class="transition-all opacity-0 text-xs font-bold text-red-500">Mínimo de caracteres (8)</p>
+                            </label>
+                            <input type="text" name="nome" id="nome" data-min_char="8" value="<?php echo $aluno->getNome();?>" placeholder="Exemplo: Estevan" class="submit_verifyer w-11/12 h-1/2 self-center px-2 rounded-md text-sm font-medium border-2 border-solid border-gray-300">
                         </div>
                         <div class="w-5/12 h-full flex justify-center items-center flex-col gap-y-1">
                             <label for="data_nasc" class="font-bold text-cyan-700 drop-shadow-2xl">Data de nascimento</label>
-                            <input type="date" id="data_nasc" name="data_nasc" value="<?php echo $aluno->getData_nasc();?>" class="w-11/12 h-1/2 self-center px-2 rounded-md text-sm font-medium border-2 border-solid border-gray-300">
+                            <input type="date" id="data_nasc" name="data_nasc" value="<?php echo $aluno->getData_nasc();?>" class="w-11/12 submit_verifyer h-1/2 self-center px-2 rounded-md text-sm font-medium transition all border-2 border-solid border-gray-300">
                         </div>
                     </div>
                     <div class="w-full h-1/4 flex justify-center items-start flex-col">
@@ -78,20 +80,23 @@
                     </div>
                     <div class="w-full h-1/4 flex justify-center items-center">
                         <div class="w-1/2 h-full flex justify-center items-start flex-col gap-y-1">
-                            <label for="matricula" class="ml-5 font-bold text-cyan-700 drop-shadow-2xl">Matricula</label>
-                            <input type="text" name="matricula" id="matricula" value="<?php echo $aluno->getMatricula();?>" placeholder="Exemplo: 202311020322" class="w-11/12 h-1/2 self-center px-2 rounded-md text-sm font-medium border-2 border-solid border-gray-300">
+                            <label for="matricula" class="alert_label ml-5 flex justify-center items-center gap-x-2 ml-5 drop-shadow-2xl">
+                                <p class="font-bold text-cyan-700">Matricula</p>
+                                <p class="transition-all opacity-0 text-xs font-bold text-red-500">apenas números</p>
+                            </label>
+                            <input type="text" data-number="1" name="matricula" id="matricula" value="<?php echo $aluno->getMatricula();?>" placeholder="Matricula:" class="submit_verifyer w-11/12 h-1/2 self-center px-2 rounded-md text-sm font-medium border-2 border-solid border-gray-300">
                         </div>
                         <div class="w-1/2 h-full flex justify-center items-center flex-col gap-y-1">
                             <label for="cpf" class="flex justify-center items-center gap-x-1 text-cyan-700">
                                 <p class="font-bold drop-shadow-2xl">Seu CPF</p>
-                                <p class="text-sm">(apenas números)</p>
+                                <p class="transition-all text-sm">apenas números (11)</p>
                             </label>
-                            <input type="text" name="cpf" id="cpf" value="<?php echo $aluno->getCpf();?>" placeholder="Exemplo: 05065440186" class="w-11/12 h-1/2 self-center px-2 rounded-md text-sm font-medium border-2 border-solid border-gray-300">
+                            <input type="text" data-char="11" data-number="1" name="cpf" id="cpf" value="<?php echo $aluno->getCpf();?>" placeholder="Exemplo: 12312312312" class="submit_verifyer w-11/12 h-1/2 self-center px-2 rounded-md text-sm font-medium border-2 border-solid border-gray-300">
                         </div>
                     </div>
                     <div class="w-full h-1/4 flex justify-around items-end pb-4">
                         <a href="alunos.php" class="w-1/3 h-[35px] flex justify-center items-center font-bold text-sm bg-[rgb(220,220,220)] rounded-md border-2 border-solid border-gray-300 cursor-pointer transition-all hover:bg-red-500 hover:text-white hover:border-0">Cancelar</a>
-                        <button type="submit" class="w-1/3 h-[35px] flex justify-center items-center font-bold text-sm bg-[rgb(220,220,220)] rounded-md border-2 border-solid border-gray-300 cursor-pointer transition-all hover:bg-green-500 hover:text-white hover:border-0">Salvar</button>
+                        <button type="button" onclick="verifyer_caller(this)" class="w-1/3 h-[35px] flex justify-center items-center font-bold text-sm bg-[rgb(220,220,220)] rounded-md border-2 border-solid border-gray-300 cursor-pointer transition-all hover:bg-green-500 hover:text-white hover:border-0">Salvar</button>
                     </div>
                 </form>
             </main>

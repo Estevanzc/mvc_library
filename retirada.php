@@ -4,3 +4,4 @@ require_once("vendor/autoload.php");
 $controller = new Controller\RetiradaController();
 $controller->form();
 ?>
+<script src="formVerifyer.js"></script>

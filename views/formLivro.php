@@ -1,28 +1,5 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema Academico</title>
-</head>
-<body>
-    <h1>Sistema Academico - Cadastro de Livro</h1>
-    <a href="livros.php">Voltar à listagem</a>
-    <form action="salvarLivro.php" method="POST">
-        <input type="hidden" name="id" value="<?php echo $livro->getId();?>">
-        <input type="text" name="titulo" value="<?php echo $livro->getTitulo();?>" placeholder="">
-        <input type="text" name="autores" value="<?php echo $livro->getAutores();?>" placeholder="">
-        <input type="text" name="editora" value="<?php echo $livro->getEditora();?>" placeholder="">
-        <input type="text" name="ano" value="<?php echo $livro->getAno();?>" placeholder="">
-        <input type="number" name="quantidade" min="1" step="1" value="<?php echo $livro->getQuantidade();?>" placeholder="">
-        <input type="text" name="ISBN" value="<?php echo $livro->getISBN();?>" placeholder="">
-        <br>
-        <button type="submit">Submit</button>
-    </form>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
@@ -69,52 +46,57 @@
                 <div class="w-52 h-full bg-center bg-cover bg-no-repeat bg-[url(imgs/logo.png)]"></div>
             </div>
             <div class="flex justify-center items-center">
-                <p class="text-white text-2xl font-bold drop-shadow-2xl">Cadastro de Alunos</p>
+                <p class="text-white text-2xl font-bold drop-shadow-2xl">Cadastro de Livros</p>
             </div>
             <div></div>
         </section>
         <section id="screen_middle" class="w-full flex justify-center items-center flex-col">
-            <div class="w-full h-14 flex justify-center items-center"></div>
-            <main class="mt-10 w-[60%] flex justify-center items-center flex-col gap-y-2.5 gap-x-2">
-                <form action="salvarAluno.php" method="POST" class="w-5/12 h-[400px] flex justify-center items-center flex-col bg-white rounded-lg shadow-2xl drop-shadow-2xl border-2 border-solid border-gray-300">
-                    <input type="hidden" name="id" value="<?php echo $aluno->getId();?>">
-                    <div class="w-full h-1/4 flex justify-center items-center">
-                        <div class="w-7/12 h-full flex justify-center items-start flex-col gap-y-1">
-                            <label for="titulo" class="ml-5 font-bold text-cyan-700 drop-shadow-2xl">Seu nome</label>
-                            <input type="text" name="titulo" id="titulo" value="<?php echo $livro->getTitulo();?>" class="w-11/12 h-1/2 self-center px-2 rounded-md text-sm font-medium border-2 border-solid border-gray-300">
-                        </div>
-                        <div class="w-5/12 h-full flex justify-center items-center flex-col gap-y-1">
-                            <label for="data_nasc" class="font-bold text-cyan-700 drop-shadow-2xl">Data de nascimento</label>
-                            <input type="date" id="data_nasc" name="data_nasc" value="<?php echo $aluno->getData_nasc();?>" class="w-11/12 h-1/2 self-center px-2 rounded-md text-sm font-medium border-2 border-solid border-gray-300">
-                        </div>
+            <main class="mt-10 w-[60%] flex justify-center items-center flex-col">
+                <form action="salvarLivro.php" method="POST" class="w-5/12 h-[500px] flex justify-center items-center flex-col bg-white rounded-lg shadow-2xl drop-shadow-2xl border-2 border-solid border-gray-300">
+                    <input type="hidden" name="id" value="<?php echo $livro->getId();?>">
+                    <div class="w-full h-1/5 flex justify-center items-start flex-col">
+                        <label for="titulo" class="alert_label flex justify-center items-center gap-x-2 ml-7 drop-shadow-2xl">
+                            <p class="font-bold text-cyan-700">Título do livro</p>
+                            <p class="transition-all opacity-0 text-xs font-bold text-red-500">Mínimo de caracteres (8)</p>
+                        </label>
+                        <input type="text" name="titulo" id="titulo" data-min_char="8" value="<?php echo $livro->getTitulo();?>" placeholder="Exemplo: Máquina do Caos" class="submit_verifyer w-11/12 h-1/2 self-center px-2 rounded-md text-sm font-medium border-2 border-solid border-gray-300">
                     </div>
-                    <div class="w-full h-1/4 flex justify-center items-start flex-col">
-                        <label for="curso" class="ml-7 font-bold text-cyan-700 drop-shadow-2xl">Seu curso</label>
-                        <select name="curso" id="curso" class="w-11/12 h-[40%] self-center px-2 rounded-md text-sm font-medium border-2 border-solid border-gray-300">
-                            <?php
-                            $cursos_name = ["Matemática", "Programação Web", "Introdução a Computação", "Algorítimos", "Interface Web"];
-                            for ($i = 0; $i <= count($cursos_name) - 1; $i ++) {
-                            ?>
-                            <option value="<?php echo($i + 1);?>" <?php echo($cursos_name[$i] == $aluno->getCurso() ? "selected" : "");?>><?php echo($cursos_name[$i]);?></option>
-                            <?php } ?>
-                        </select>
-                    </div>
-                    <div class="w-full h-1/4 flex justify-center items-center">
-                        <div class="w-1/2 h-full flex justify-center items-start flex-col gap-y-1">
-                            <label for="matricula" class="ml-5 font-bold text-cyan-700 drop-shadow-2xl">Matricula</label>
-                            <input type="text" name="matricula" id="matricula" value="<?php echo $aluno->getMatricula();?>" placeholder="Exemplo: 202311020322" class="w-11/12 h-1/2 self-center px-2 rounded-md text-sm font-medium border-2 border-solid border-gray-300">
+                    <div class="w-full h-1/5 flex justify-center items-center">
+                        <div class="w-1/2 h-full flex justify-center items-center flex-col gap-y-1">
+                            <label for="autores" class="alert_label flex justify-center items-center gap-x-2 drop-shadow-2xl">
+                                <p class="font-bold text-cyan-700">Autor</p>
+                                <p class="transition-all opacity-0 text-xs font-bold text-red-500">Min caracteres (8)</p>
+                            </label>
+                            <input type="text" name="autores" id="autores" data-min_char="8" value="<?php echo $livro->getAutores();?>" placeholder="Exemplo: Max Fisher" class="submit_verifyer w-11/12 h-1/2 self-center px-2 rounded-md text-sm font-medium border-2 border-solid border-gray-300">
                         </div>
                         <div class="w-1/2 h-full flex justify-center items-center flex-col gap-y-1">
-                            <label for="cpf" class="flex justify-center items-center gap-x-1 text-cyan-700">
-                                <p class="font-bold drop-shadow-2xl">Seu CPF</p>
-                                <p class="text-sm">(apenas números)</p>
+                            <label for="data_nasc" class="alert_label flex justify-center items-center gap-x-2 drop-shadow-2xl">
+                                <p class="font-bold text-cyan-700">Editora</p>
+                                <p class="transition-all opacity-0 text-xs font-bold text-red-500">Min caracteres (8)</p>
                             </label>
-                            <input type="text" name="cpf" id="cpf" value="<?php echo $aluno->getCpf();?>" placeholder="Exemplo: 05065440186" class="w-11/12 h-1/2 self-center px-2 rounded-md text-sm font-medium border-2 border-solid border-gray-300">
+                            <input type="text" name="editora" id="editora" data-min_char="8" value="<?php echo $livro->getEditora();?>" placeholder="Exemplo: Editora A" class="submit_verifyer w-11/12 h-1/2 self-center px-2 rounded-md text-sm font-medium border-2 border-solid border-gray-300">
                         </div>
                     </div>
-                    <div class="w-full h-1/4 flex justify-around items-end pb-4">
-                        <a href="alunos.php" class="w-1/3 h-[35px] flex justify-center items-center font-bold text-sm bg-[rgb(220,220,220)] rounded-md border-2 border-solid border-gray-300 cursor-pointer transition-all hover:bg-red-500 hover:text-white hover:border-0">Cancelar</a>
-                        <button type="submit" class="w-1/3 h-[35px] flex justify-center items-center font-bold text-sm bg-[rgb(220,220,220)] rounded-md border-2 border-solid border-gray-300 cursor-pointer transition-all hover:bg-green-500 hover:text-white hover:border-0">Salvar</button>
+                    <div class="w-full h-1/5 flex justify-center items-center">
+                        <div class="w-1/2 h-full flex justify-center items-start flex-col gap-y-1">
+                            <label for="ano" class="ml-5 font-bold text-cyan-700 drop-shadow-2xl">Ano de publicação</label>
+                            <input type="text" name="ano" id="ano" data-number="1" value="<?php echo $livro->getAno();?>" placeholder="Exemplo: 2024" class="submit_verifyer w-11/12 h-1/2 self-center px-2 rounded-md text-sm font-medium border-2 border-solid border-gray-300">
+                        </div>
+                        <div class="w-1/2 h-full flex justify-center items-start flex-col gap-y-1">
+                            <label for="data_nasc" class="ml-5 font-bold text-cyan-700 drop-shadow-2xl">Quantidade</label>
+                            <input type="number" name="quantidade" id="quantidade" min="1" step="1" value="<?php echo $livro->getQuantidade();?>" placeholder="Exemplo: 10" class="w-11/12 h-1/2 self-center px-2 rounded-md text-sm font-medium border-2 border-solid border-gray-300">
+                        </div>
+                    </div>
+                    <div class="w-full h-1/5 flex justify-center items-start flex-col">
+                        <label for="ISBN" class="ml-7 alert_label flex justify-center items-center gap-x-2 drop-shadow-2xl">
+                            <p class="font-bold text-cyan-700">ISBN</p>
+                            <p class="transition-all opacity-0 text-xs font-bold text-red-500">apenas números</p>
+                        </label>
+                        <input type="text" name="ISBN" id="ISBN" data-number="1" value="<?php echo $livro->getISBN();?>" class="submit_verifyer w-11/12 h-1/2 self-center px-2 rounded-md text-sm font-medium border-2 border-solid border-gray-300">
+                    </div>
+                    <div id="here" class="w-full h-1/5 flex justify-around items-end pb-4">
+                        <a href="livros.php" class="w-1/3 h-[35px] flex justify-center items-center font-bold text-sm bg-[rgb(220,220,220)] rounded-md border-2 border-solid border-gray-300 cursor-pointer transition-all hover:bg-red-500 hover:text-white hover:border-0">Cancelar</a>
+                        <button type="button" onclick="verifyer_caller(this)" class="w-1/3 h-[35px] flex justify-center items-center font-bold text-sm bg-[rgb(220,220,220)] rounded-md border-2 border-solid border-gray-300 cursor-pointer transition-all hover:bg-green-500 hover:text-white hover:border-0">Salvar</button>
                     </div>
                 </form>
             </main>
