@@ -52,6 +52,13 @@ function input_verifyer(element) {
         } else {
             element.classList.remove("border-red-500")
         }
+    } else if (element.type == "number") {
+        if (Number(element.value) < Number(element.min)) {  
+            element.classList.add("border-red-500")
+            submit_permission = false
+        } else {
+            element.classList.remove("border-red-500")
+        }
     }
 }
 function verifyer_caller(element) {

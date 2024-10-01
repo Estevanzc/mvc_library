@@ -82,9 +82,17 @@
                             <label for="ano" class="ml-5 font-bold text-cyan-700 drop-shadow-2xl">Ano de publicação</label>
                             <input type="text" name="ano" id="ano" data-number="1" value="<?php echo $livro->getAno();?>" placeholder="Exemplo: 2024" class="submit_verifyer w-11/12 h-1/2 self-center px-2 rounded-md text-sm font-medium border-2 border-solid border-gray-300">
                         </div>
+                        <?php
+                        $retiradas_num = 0;
+                        foreach ($retiradas as $retirada) {
+                            if ($retirada->getLivro_id() == $livro->getTitulo()) {
+                                $retiradas_num ++;
+                            }
+                        }
+                        ?>
                         <div class="w-1/2 h-full flex justify-center items-start flex-col gap-y-1">
                             <label for="data_nasc" class="ml-5 font-bold text-cyan-700 drop-shadow-2xl">Quantidade</label>
-                            <input type="number" name="quantidade" id="quantidade" min="1" step="1" value="<?php echo $livro->getQuantidade();?>" placeholder="Exemplo: 10" class="w-11/12 h-1/2 self-center px-2 rounded-md text-sm font-medium border-2 border-solid border-gray-300">
+                            <input type="number" name="quantidade" id="quantidade" min="<?php echo ($retiradas_num == 0 ? 1 : $retiradas_num)?>" step="1" value="<?php echo $livro->getQuantidade();?>" placeholder="Exemplo: 10" class="submit_verifyer w-11/12 h-1/2 self-center px-2 rounded-md text-sm font-medium border-2 border-solid border-gray-300">
                         </div>
                     </div>
                     <div class="w-full h-1/5 flex justify-center items-start flex-col">

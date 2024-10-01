@@ -59,17 +59,23 @@
                     <tr class="h-9 bg-white">
                         <td class="w-[5%] text-center font-bold">ID</td>
                         <td class="w-[25%] pl-5 font-bold">Titulo</td>
-                        <td class="w-[15%] text-center font-bold">Autores</td>
-                        <td class="w-[15%] text-center font-bold">Editora</td>
+                        <td class="w-[12.5%] text-center font-bold">Autores</td>
+                        <td class="w-[12.5%] text-center font-bold">Editora</td>
                         <td class="w-[7.5%] text-center font-bold">Ano</td>
-                        <td class="w-[7.5%] text-center font-bold">Qt.</td>
+                        <td class="w-[12.5%] text-center font-bold">Qt. Disponível</td>
                         <td class="w-[15%] text-center font-bold">ISBN</td>
                         <td class="w-[10%] text-center font-bold">Ações</td>
                     </tr>
-                    <?php 
+                    <?php
                     $count = 0;
                     foreach ($livros as $livro) {
                         $count ++;
+                        $retiradas_num = 0;
+                        foreach ($retiradas as $retirada) {
+                            if ($retirada->getLivro_id() == $livro->getTitulo()) {
+                                $retiradas_num ++;
+                            }
+                        }
                         ?>
                         <tr class="h-9 bg-[rgba(255,255,255,<?php echo ($count % 2 == 0 ? "0.5" : "0.3");?>)] transition-all hover:bg-[rgba(255,255,255,0.8)]">
                             <td class="text-center font-bold"><?php echo ($livro->getId())?></td>
@@ -77,7 +83,7 @@
                             <td class="text-center text-sm"><?php echo ($livro->getAutores())?></td>
                             <td class="text-center text-sm"><?php echo ($livro->getEditora())?></td>
                             <td class="text-center text-sm"><?php echo ($livro->getAno())?></td>
-                            <td class="text-center text-sm"><?php echo ($livro->getQuantidade())?></td>
+                            <td class="text-center text-sm"><?php echo ($livro->getQuantidade() - $retiradas_num ."/". $livro->getQuantidade())?></td>
                             <td class="text-center text-sm"><?php echo ($livro->getISBN())?></td>
                             <td class="flex justify-center items-center text-center">
                                 <a href="livro.php?id=<?php echo $livro->getId(); ?>" class="grow h-9 flex justify-center items-center hover:text-blue-500 transition-all cursor-pointer drop-shadow-2xl shadow-2xl"><i class="fa-solid fa-pen"></i></a>

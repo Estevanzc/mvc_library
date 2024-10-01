@@ -69,19 +69,20 @@
                         <label for="livro_id" class="ml-7 font-bold text-cyan-700 drop-shadow-2xl">Livro</label>
                         <select name="livro_id" id="livro_id" class="w-11/12 h-[40%] self-center px-2 rounded-md text-sm font-medium border-2 border-solid border-gray-300">
                         <?php
-                            foreach ($livros as $livro) {
-                                $reserved = false;
-                                foreach ($retiradas as $retirada) {
-                                    if ($retirada->getLivro_id() == $livro->getTitulo()) {
-                                        $reserved = true;
-                                    }
-                                }
-                                if (!$reserved) {
-                                    ?>
-                                    <option value="<?php echo $livro->getId();?>"><?php echo $livro->getTitulo();?></option>
-                                    <?php
+                        foreach ($livros as $livro) {
+                            $reserved = false;
+                            $retiradas_num = 0;
+                            foreach ($retiradas as $retirada) {
+                                if ($retirada->getLivro_id() == $livro->getTitulo()) {
+                                    $retiradas_num ++;
                                 }
                             }
+                            if ($livro->getQuantidade() - $retiradas_num > 0) {
+                                ?>
+                                <option value="<?php echo $livro->getId();?>"><?php echo $livro->getTitulo();?></option>
+                                <?php
+                            }
+                        }
                         ?>
                         </select>
                     </div>

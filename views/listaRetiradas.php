@@ -53,7 +53,11 @@
         <section id="screen_middle" class="w-full flex justify-center items-center flex-col">
             <main class="mt-10 w-[60%] flex justify-center items-center flex-col gap-y-2.5 gap-x-2">
                 <?php
-                $livro_counter = count($livros) - count($retiradas);
+                $livro_counter = 0;
+                foreach ($livros as $livro) {
+                    $livro_counter += $livro->getQuantidade();
+                }
+                $livro_counter = $livro_counter - count($retiradas);
                 ?>
                 <div class="w-full flex <?php echo($livro_counter > 0 ? "justify-between" : "justify-start")?> items-center">
                     <div class="py-1 px-5 flex justify-center items-center gap-x-1 bg-white font-medium rounded-sm drop-shadow-2xl shadow-2xl">

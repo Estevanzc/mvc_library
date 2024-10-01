@@ -24,8 +24,10 @@ final class LivroController extends Controller {
         } else {
             $livro = new LivroVO();
         }
+        $retiradas = (new RetiradaModel())->selectAll(new RetiradaVO());
         $this->loadView("formLivro", [
-            "livro" => $livro
+            "livro" => $livro,
+            "retiradas" => $retiradas
         ]);
     }
     public function save() {
